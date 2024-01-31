@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import RegisterEventRow from './RegisterEventRow';
 import Swal from 'sweetalert2';
+import LeftSideBar from '../../Shared/LeftSideBar/LeftSideBar';
 
 const RegisterAllEvents = () => {
 
@@ -49,9 +50,9 @@ const RegisterAllEvents = () => {
         fetch(`http://localhost:5000/registerevets/${id}`, {
             method: 'PATCH',
             headers: {
-                'content-type' : 'application/json'
+                'content-type': 'application/json'
             },
-            body: JSON.stringify({status : confirm})
+            body: JSON.stringify({ status: confirm })
         })
             .then(res => res.json())
             .then(data => {
@@ -74,37 +75,46 @@ const RegisterAllEvents = () => {
 
     return (
         <div>
-            <h1 className='text-center text-3xl text-blue-600 font-bold py-7'>Register All Event: {registerAllEvents.length}</h1>
 
-            <div className="overflow-x-auto">
-                <table className="table">
-                    {/* head */}
-                    <thead>
-                        <tr>
-                            <th>Delete</th>
-                            <th>Event Detail</th>
-                            <th>ParticipateName & Email</th>
-                            <th>Mobile Number</th>
-                            <th>Date</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {/* row 1 */}
-                        {
-                            registerAllEvents.map(event => <RegisterEventRow
-                                key={event._id}
-                                event={event}
-                                handleDeleteRegister={handleDeleteRegister}
-                                handleRegisterConfirm={handleRegisterConfirm}
-                            ></RegisterEventRow>)
-                        }
+            <div className='grid grid-cols-5'>
+                <div>
+                    <LeftSideBar></LeftSideBar>
+                </div>
 
-                    </tbody>
+                <div className="overflow-x-auto col-span-4">
+                    <h1 className='text-center text-3xl text-blue-600 font-bold py-7'>Register All Event: {registerAllEvents.length}</h1>
+                    <table className="table">
+                        {/* head */}
+                        <thead>
+                            <tr>
+                                <th>Delete</th>
+                                <th>Event Detail</th>
+                                <th>ParticipateName & Email</th>
+                                <th>Mobile Number</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {/* row 1 */}
+                            {
+                                registerAllEvents.map(event => <RegisterEventRow
+                                    key={event._id}
+                                    event={event}
+                                    handleDeleteRegister={handleDeleteRegister}
+                                    handleRegisterConfirm={handleRegisterConfirm}
+                                ></RegisterEventRow>)
+                            }
+
+                        </tbody>
 
 
-                </table>
+                    </table>
+                </div>
+
             </div>
+
+
 
         </div>
     );

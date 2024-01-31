@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useLoaderData } from 'react-router-dom';
+import { AuthContext } from '../../providers/AuthProvider';
 
 const RegisterEvent = () => {
 
     const event = useLoaderData()
+    const {user} = useContext(AuthContext)
 
     const {_id, title, date, img } = event;
 
@@ -82,7 +84,7 @@ const RegisterEvent = () => {
                                     <label className="label">
                                         <span className="label-text">Email</span>
                                     </label>
-                                    <input type="email" name='email' placeholder="Enter Email" className="input input-bordered" required />
+                                    <input type="email" name='email' defaultValue={user.email} placeholder="Enter Email" className="input input-bordered" required />
                                 </div>
                             </div>
                         </div>

@@ -5,12 +5,12 @@ import app from '../firebase/firebase.config';
 export const AuthContext = createContext()
 const auth = getAuth(app);
 
-const AuthProvider = ({children}) => {
-    const [user , setUser] = useState([null])
+const AuthProvider = ({ children }) => {
+    const [user, setUser] = useState([null])
     const [loading, setLoading] = useState(true)
     const googleProvider = new GoogleAuthProvider()
 
-    const createUser = (email, password) =>{
+    const createUser = (email, password) => {
         setLoading(true)
         return createUserWithEmailAndPassword(auth, email, password);
     }
@@ -25,24 +25,50 @@ const AuthProvider = ({children}) => {
         return signInWithPopup(auth, googleProvider)
     }
 
-    const logOut = () =>{
+    const logOut = () => {
         setLoading(true)
         return signOut(auth);
     }
 
-    useEffect( () => {
+    useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
 
             setUser(currentUser);
             console.log('current user', currentUser)
             setLoading(false)
+
+            if (currentUser && currentUser.email) {
+                // JWT Token Access and storing in local storage
+                const loggedUser = {
+                    email: currentUser.email
+                }
+                console.log(loggedUser)
+                fetch('http://localhost:5000/jwt', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(loggedUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log('jwt response', data)
+                        // warning: Local storage JWT Storing 
+                        localStorage.setItem("volunteer-network-token", data.token)
+                    })
+            }
+            else {
+                localStorage.removeItem('volunteer-network-token')
+            }
+
+
         })
 
-            return () => {
-                return unsubscribe()    
-            }
-        
-    } ,[])
+        return () => {
+            return unsubscribe()
+        }
+
+    }, [])
 
 
     const authInfo = {

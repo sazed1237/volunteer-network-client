@@ -5,9 +5,13 @@ import AddEvent from "../Pages/AddEvent/AddEvent";
 import AdminLayout from "../Layout/AdminLayout";
 import Event from "../Pages/Home/Event/Events";
 import RegisterEvent from "../Pages/RegisterEvent/RegisterEvent";
-import RegisterAllEvents from "../Pages/RegisterAllEvents/RegisterAllEvents";
 import Login from "../Pages/LogIn/Login";
 import SingUp from "../Pages/SingUp/SingUp";
+import UserSpecificReg from "../Pages/UserSpecificEventReg/UserSpecificReg";
+import PrivateRoute from "./PrivateRoute";
+import HomeAdmin from "../Pages/Admin/HomeAdmin";
+import RegisterAllEvents from "../Pages/Admin/RegisterAllEvents/RegisterAllEvents";
+
 
 
 const router = createBrowserRouter([
@@ -21,10 +25,7 @@ const router = createBrowserRouter([
         loader: () => fetch('http://localhost:5000/events')
 
       },
-      {
-        path: '/addevent',
-        element: <AddEvent></AddEvent>
-      },
+     
       {
         path: '/events',
         element: <Event></Event>,
@@ -32,13 +33,14 @@ const router = createBrowserRouter([
       },
       {
         path: '/registerevent/:id',
-        element: <RegisterEvent></RegisterEvent>,
+        element: <PrivateRoute><RegisterEvent></RegisterEvent></PrivateRoute>,
         loader: ({params}) => fetch(`http://localhost:5000/events/${params.id}`)
       },
+     
       {
-        path: '/registerallevents',
-        element: <RegisterAllEvents></RegisterAllEvents>,
-        loader: () => fetch('http://localhost:5000/registerevets')
+        path: '/user-specific-reg',
+        element: <PrivateRoute><UserSpecificReg></UserSpecificReg></PrivateRoute>,
+        
       },
       {
         path: '/login',
@@ -48,11 +50,30 @@ const router = createBrowserRouter([
         path: '/singup',
         element: <SingUp></SingUp>
       }
-
-
     ],
-
   },
+
+
+  {
+    path: 'admin',
+    element: <AdminLayout></AdminLayout>,
+    children: [
+      {
+        path: '/admin',
+        element: <HomeAdmin></HomeAdmin>
+      },
+      {
+        path: '/admin/registerallevents',
+        element: <RegisterAllEvents></RegisterAllEvents>,
+        loader: () => fetch('http://localhost:5000/registerevets')
+      },
+      {
+        path: '/admin/addevent',
+        element: <AddEvent></AddEvent>
+      },
+
+    ]
+  }
 ]);
 
 export default router;

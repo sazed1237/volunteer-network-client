@@ -1,11 +1,15 @@
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import SocialLogIn from "../SocialLogIn/SocialLogIn";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
 
-const {singIn } = useContext(AuthContext)
+    const { singIn } = useContext(AuthContext)
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    const from = location.state?.from?.pathname || '/';
 
 
     const handleLogin = event => {
@@ -18,13 +22,15 @@ const {singIn } = useContext(AuthContext)
         console.log(email, password)
 
         singIn(email, password)
-        .then(result =>{
-            const loggedUser = result.user;
-            console.log(loggedUser)
-        })
-        .catch(error => console.log(error))
-        
-        
+            .then(result => {
+                const user = result.user;
+                console.log(user)
+
+                navigate(from, { replace: true })
+            })
+            .catch(error => console.log(error))
+
+
     }
 
 

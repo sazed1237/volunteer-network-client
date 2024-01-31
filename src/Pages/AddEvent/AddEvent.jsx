@@ -41,7 +41,7 @@ const AddEvent = () => {
             <div>
                 <LeftSideBar></LeftSideBar>
             </div>
-            <div className='bg-[#F4F7FC] col-span-4'>
+            <div className='bg-[#F4F7FC] rounded-xl col-span-4'>
                 <div className=" m-10 min-h-screen ">
                     <h3 className='mb-7 ml-3 text-3xl font-bold text-blue-600'>Add Event</h3>
                     <div className="w-full rounded-3xl  shadow-2xl bg-base-100">

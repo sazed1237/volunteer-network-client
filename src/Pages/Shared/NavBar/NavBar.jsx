@@ -9,8 +9,10 @@ const NavBar = () => {
 
     const handleLogOut = () => {
         logOut()
-        .then()
-        .catch(error => console.log(error))
+            .then(() => {
+                
+            })
+            .catch(error => console.log(error))
     }
 
     const navItems = <>
@@ -21,7 +23,10 @@ const NavBar = () => {
 
         {
             user?.email ?
-                <li><button onClick={handleLogOut}>Log Out</button></li>
+                <>
+                    <li><Link to={'/user-specific-reg'}>My Events</Link></li>
+                    <li><button onClick={handleLogOut}>Log Out</button></li>
+                </>
                 :
                 <li><Link to={'/login'}>Login</Link></li>
 
@@ -51,10 +56,10 @@ const NavBar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <Link className='mr-3  '>
+                <Link to={'/singup'} className='mr-3  '>
                     <button className=' px-6 py-1 text-white rounded-md bg-[#3F90FC]'>Register</button>
                 </Link>
-                <Link>
+                <Link to={'/admin'}>
                     <button className=' px-6 py-1 text-white rounded-md bg-[#434141]'>Admin</button>
                 </Link>
             </div>

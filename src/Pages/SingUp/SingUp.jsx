@@ -2,11 +2,15 @@ import { useContext } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { AuthContext } from "../../providers/AuthProvider";
 import SocialLogIn from "../SocialLogIn/SocialLogIn";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const SingUp = () => {
 
     const { createUser } = useContext(AuthContext)
+    const location = useLocation()
+    const navigate = useNavigate()
+
+    const from = location.state?.from?.pathname || '/';
 
 
     const handleSingUp = event => {
@@ -23,20 +27,13 @@ const SingUp = () => {
         .then(result => {
             const createdUser = result.createUser;
             console.log(createdUser)
+            
+            navigate(from, {replace: true})
         })
         .catch(error => console.log(error))
 
     }
 
-    const handleGoogleSingIn = () => {
-        googleSingIn()
-            .then(result => {
-                console.log(result)
-            })
-            .catch(error => {
-                console.log(error)
-            })
-    }
 
 
     return (
@@ -72,7 +69,7 @@ const SingUp = () => {
                             <input className="btn btn-primary" type="submit" value="Sing up" />
                         </div>
                         <div>
-                            <p className="text-center">New to Volunteer Network? <Link to={'/singup'} className="text-blue-700 font-bold">Sing Up</Link></p>
+                            <p className="text-center">New to Volunteer Network? <Link to={'/singup'} className="text-blue-700 font-bold">Login</Link></p>
                         </div>
                     </form>
                     <SocialLogIn></SocialLogIn>
