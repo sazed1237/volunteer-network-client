@@ -22,19 +22,19 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home></Home>,
-        loader: () => fetch('http://localhost:5000/events')
+        loader: () => fetch('https://volunteer-network-server-chi.vercel.app/events')
 
       },
      
       {
         path: '/events',
         element: <Event></Event>,
-        // loader: () => fetch('http://localhost:5000/events')
+        // loader: () => fetch('https://volunteer-network-server-chi.vercel.app/events')
       },
       {
         path: '/registerevent/:id',
         element: <PrivateRoute><RegisterEvent></RegisterEvent></PrivateRoute>,
-        loader: ({params}) => fetch(`http://localhost:5000/events/${params.id}`)
+        loader: ({params}) => fetch(`https://volunteer-network-server-chi.vercel.app/events/${params.id}`)
       },
      
       {
@@ -65,7 +65,7 @@ const router = createBrowserRouter([
       {
         path: '/admin/registerallevents',
         element: <RegisterAllEvents></RegisterAllEvents>,
-        loader: () => fetch('http://localhost:5000/registerevets')
+        loader: () => fetch('https://volunteer-network-server-chi.vercel.app/registerevets')
       },
       {
         path: '/admin/addevent',

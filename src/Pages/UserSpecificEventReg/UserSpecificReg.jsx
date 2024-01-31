@@ -10,7 +10,7 @@ const UserSpecificReg = () => {
     const [events, setEvents] = useState([]);
     const navigate = useNavigate()
 
-    const url = `http://localhost:5000/registerevets?email=${user?.email}`
+    const url = `https://volunteer-network-server-chi.vercel.app/registerevets?email=${user?.email}`
     useEffect(() => {
         // jwt verify  
         fetch(url, {
@@ -47,7 +47,7 @@ const UserSpecificReg = () => {
         }).then((result) => {
             if (result.isConfirmed) {
 
-                fetch(`http://localhost:5000/registerevets/${id}`, {
+                fetch(`https://volunteer-network-server-chi.vercel.app/registerevets/${id}`, {
                     method: 'DELETE'
                 })
                     .then(res => res.json())

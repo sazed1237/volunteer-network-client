@@ -28,7 +28,7 @@ const RegisterEvent = () => {
             email,
         }
 
-        fetch('http://localhost:5000/registerevets', {
+        fetch('https://volunteer-network-server-chi.vercel.app/registerevets', {
             method: 'POST', 
             headers: {
                 'content-type' : 'application/json'

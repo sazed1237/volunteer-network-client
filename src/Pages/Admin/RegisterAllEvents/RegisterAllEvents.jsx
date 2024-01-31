@@ -23,7 +23,7 @@ const RegisterAllEvents = () => {
         }).then((result) => {
             if (result.isConfirmed) {
 
-                fetch(`http://localhost:5000/registerevets/${id}`, {
+                fetch(`https://volunteer-network-server-chi.vercel.app/registerevets/${id}`, {
                     method: 'DELETE'
                 })
                     .then(res => res.json())
@@ -47,7 +47,7 @@ const RegisterAllEvents = () => {
 
     const handleRegisterConfirm = id => {
         console.log(id)
-        fetch(`http://localhost:5000/registerevets/${id}`, {
+        fetch(`https://volunteer-network-server-chi.vercel.app/registerevets/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'
